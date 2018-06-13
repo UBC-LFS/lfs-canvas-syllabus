@@ -1,0 +1,14 @@
+{
+  "name": "lfs-canvas-syllabus",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch"
+  },
+  "author": "Justin Lee",
+  "license": "ISC",
+  "dependencies": {
+    "node-canvas-api": "^1.0.1"
+  }
+}
