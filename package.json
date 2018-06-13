@@ -9,6 +9,7 @@
   "author": "Justin Lee",
   "license": "ISC",
   "dependencies": {
-    "node-canvas-api": "^1.0.1"
+    "node-canvas-api": "^1.0.2",
+    "prompts": "^0.1.8"
   }
 }
