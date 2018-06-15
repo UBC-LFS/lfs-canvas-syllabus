@@ -31,7 +31,7 @@ const prompt = [
       { title: 'W1', value: 'W1' },
       { title: 'W2', value: 'W2' },
       { title: 'S1', value: 'S1' },
-      { title: 'S2', value: 'S2' },
+      { title: 'S2', value: 'S2' }
     ]
   }
 ]

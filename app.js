@@ -9,10 +9,19 @@ const year = 2017
 const term = 'W2'
 
 const noSyllabus = x => x.syllabus === null || x.syllabus === ''
-const getCourseId = x => x.courseId
 
 const getInstructors = courses => Promise.all(
-  courses.map(course => getUsersInCourse(course.courseId, getOptions.users.enrollmentType.teacher))
+  courses.map(({ courseId, courseCode }) =>
+    getUsersInCourse(courseId, getOptions.users.enrollmentType.teacher)
+      .then(instructors =>
+        instructors.map(instructor =>
+          Object.assign({}, instructor, {
+            courseId,
+            courseCode
+          })
+        )
+      )
+  )
 )
 
 ;(async function () {
