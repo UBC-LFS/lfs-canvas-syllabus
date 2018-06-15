@@ -11,8 +11,8 @@ const term = 'W2'
 const noSyllabus = x => x.syllabus === null || x.syllabus === ''
 const getCourseId = x => x.courseId
 
-const getInstructors = courses => (Promise.all(
-  courses.map(course => getUsersInCourse(course.courseId, getOptions.users.enrollmentType.teacher)))
+const getInstructors = courses => Promise.all(
+  courses.map(course => getUsersInCourse(course.courseId, getOptions.users.enrollmentType.teacher))
 )
 
 ;(async function () {
