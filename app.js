@@ -4,6 +4,7 @@ const {
   getOptions
 } = require('node-canvas-api')
 const { flatten } = require('ramda')
+const removeNewline = require('./src/util/cleanHTML')
 
 const year = 2017
 const term = 'W2'
@@ -30,10 +31,8 @@ const getInstructors = courses => Promise.all(
   const courseIdsWithNoSyllabi = allSyllabi
     .filter(x => noSyllabus(x))
 
-  const instructors = flatten(await getInstructors(courseIdsWithNoSyllabi))
+  // const instructors = flatten(await getInstructors(courseIdsWithNoSyllabi))
 
   const coursesWithSyllabi = allSyllabi
     .filter(x => !noSyllabus(x))
-
-  console.log(instructors)
 })()
