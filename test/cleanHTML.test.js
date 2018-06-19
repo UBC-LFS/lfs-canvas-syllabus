@@ -1,3 +1,5 @@
+/* global describe, it */
+
 const removeNewline = require('../src/util/cleanHTML')
 const assert = require('assert')
 
