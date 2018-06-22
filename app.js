@@ -5,7 +5,8 @@ const {
 } = require('node-canvas-api')
 const { flatten } = require('ramda')
 const removeNewline = require('./src/util/cleanHTML')
-const writeHTML = require('./src/html/buildHTML')
+const buildHTML = require('./src/html/buildHTML')
+const writeHTML = require('./src/html/writeHTML')
 
 const year = 2017
 const term = 'W2'
@@ -26,6 +27,17 @@ const getInstructors = courses => Promise.all(
   )
 )
 
+const writeSyllabusToDisk = coursesWithSyllabi => {
+  coursesWithSyllabi.forEach(({ syllabus, courseCode }) => {
+    const syllabusHTML = buildHTML(syllabus)
+    writeHTML({
+      html: syllabusHTML,
+      year: year + term,
+      course: courseCode
+    })
+  })
+}
+
 ;(async function () {
   const allSyllabi = await getAllCourseSyllabiInTerm(15, year, term)
 
@@ -36,6 +48,6 @@ const getInstructors = courses => Promise.all(
 
   const coursesWithSyllabi = allSyllabi
     .filter(x => !noSyllabus(x))
-  
-  
+
+  writeSyllabusToDisk(coursesWithSyllabi)
 })()

@@ -7,7 +7,11 @@ const createFilePath = (year, course) => path.join(__dirname, `/output/${year}-$
 
 const writeHTML = ({ html, year, course }) => {
   const filePath = createFilePath(year, course)
-  return fsWrite(filePath, html)
+  try {
+    fsWrite(filePath, html)
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 module.exports = writeHTML
