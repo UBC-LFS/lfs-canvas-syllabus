@@ -5,6 +5,7 @@ const {
 } = require('node-canvas-api')
 const { flatten } = require('ramda')
 const removeNewline = require('./src/util/cleanHTML')
+const writeHTML = require('./src/html/buildHTML')
 
 const year = 2017
 const term = 'W2'
@@ -35,4 +36,6 @@ const getInstructors = courses => Promise.all(
 
   const coursesWithSyllabi = allSyllabi
     .filter(x => !noSyllabus(x))
+  
+  
 })()
