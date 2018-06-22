@@ -3,10 +3,10 @@ const { promisify } = require('util')
 const path = require('path')
 const fsWrite = promisify(fs.writeFile)
 
-const createFilePath = (year, course) => path.join(__dirname, `/output/${year}-${course}.html`)
+const createFilePath = (term, name, course) => path.join(__dirname, `/output/${term}-${name}-${course}.html`)
 
-const writeHTML = ({ html, year, course }) => {
-  const filePath = createFilePath(year, course)
+const writeHTML = ({ html, term, name, course }) => {
+  const filePath = createFilePath(term, name, course)
   try {
     fsWrite(filePath, html)
   } catch (e) {
