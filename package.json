@@ -10,8 +10,8 @@
   "author": "Justin Lee",
   "license": "ISC",
   "dependencies": {
-    "jest": "^23.1.0",
-    "node-canvas-api": "^1.1.36",
+    "jest": "^23.2.0",
+    "node-canvas-api": "^1.1.37",
     "prompts": "^0.1.9",
     "ramda": "^0.25.0"
   }
