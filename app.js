@@ -47,7 +47,7 @@ const downloadCanvasLinks = coursesWithSyllabi => {
     const links = findCanvasLinks(findHref(syllabus))
     if (links.length > 0) {
       const fileIDs = links.map(link => extractIDfromURL(link))
-      fileIDs.forEach(id => downloadFile(id, './src/output/'))
+      fileIDs.forEach(id => downloadFile(id, './src/html/output/'))
     }
   })
 }
