@@ -1,6 +1,6 @@
 /* global describe, it */
 
-const removeNewline = require('../src/util/cleanHTML')
+const { removeNewline } = require('../src/util/html')
 const assert = require('assert')
 
 describe('removeNewline', () => {

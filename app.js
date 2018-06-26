@@ -7,6 +7,7 @@ const { flatten } = require('ramda')
 const removeNewline = require('./src/util/cleanHTML')
 const buildHTML = require('./src/html/buildHTML')
 const writeHTML = require('./src/html/writeHTML')
+const downloadLinks = require('./src/html/downloadLinks')
 
 const noSyllabus = x => x.syllabus === null || x.syllabus === ''
 
@@ -42,7 +43,7 @@ const writeSyllabusToDisk = coursesWithSyllabi => {
   const courseIdsWithNoSyllabi = allSyllabi
     .filter(x => noSyllabus(x))
 
-  // const instructors = flatten(await getInstructors(courseIdsWithNoSyllabi))
+  // const instructorsWithNoSyllabus = flatten(await getInstructors(courseIdsWithNoSyllabi))
 
   const coursesWithSyllabi = allSyllabi
     .filter(x => !noSyllabus(x))
