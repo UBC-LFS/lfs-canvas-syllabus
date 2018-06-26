@@ -51,7 +51,7 @@ const downloadCanvasLinks = coursesWithSyllabi => {
         .filter(id => typeof id === 'number')
       fileIDs.forEach(id => {
         try {
-          downloadFile(id, `./output/${term}/${courseCode}/source/`)
+          downloadFile(id, `./output/${term.name}/${courseCode}/source/`)
         } catch (e) {
           console.log(e)
         }
