@@ -55,21 +55,22 @@ const downloadCanvasLinks = coursesWithSyllabi => {
         } catch (e) {
           console.log(e)
         }
-    })
-  }
-})
+      })
+    }
+  })
+}
 
-  ; (async function () {
-    const allSyllabi = await getAllCourseSyllabiInAccount(15)
+; (async function () {
+  const allSyllabi = await getAllCourseSyllabiInAccount(15)
 
-    const courseIdsWithNoSyllabi = allSyllabi
-      .filter(x => noSyllabus(x))
+  const courseIdsWithNoSyllabi = allSyllabi
+    .filter(x => noSyllabus(x))
 
-    // const instructorsWithNoSyllabus = flatten(await getInstructors(courseIdsWithNoSyllabi))
+  // const instructorsWithNoSyllabus = flatten(await getInstructors(courseIdsWithNoSyllabi))
 
-    const coursesWithSyllabi = allSyllabi
-      .filter(x => !noSyllabus(x))
+  const coursesWithSyllabi = allSyllabi
+    .filter(x => !noSyllabus(x))
 
-    // writeSyllabusToDisk(coursesWithSyllabi)
-    downloadCanvasLinks(coursesWithSyllabi)
-  })()
+  // writeSyllabusToDisk(coursesWithSyllabi)
+  downloadCanvasLinks(coursesWithSyllabi)
+})()
