@@ -1,13 +1,18 @@
 const {
   getAllCourseSyllabiInAccount,
   getUsersInCourse,
-  getOptions
+  getOptions,
+  downloadFile
 } = require('node-canvas-api')
-const { flatten } = require('ramda')
-const removeNewline = require('./src/util/cleanHTML')
+const {
+  removeNewline,
+  findHref,
+  findCanvasLinks,
+  extractIDfromURL
+} = require('./src/util/html')
 const buildHTML = require('./src/html/buildHTML')
 const writeHTML = require('./src/html/writeHTML')
-const downloadLinks = require('./src/html/downloadLinks')
+// const { flatten } = require('ramda')
 
 const noSyllabus = x => x.syllabus === null || x.syllabus === ''
 
@@ -37,7 +42,17 @@ const writeSyllabusToDisk = coursesWithSyllabi => {
   })
 }
 
-;(async function () {
+const downloadCanvasLinks = coursesWithSyllabi => {
+  coursesWithSyllabi.forEach(({ syllabus, courseCode, term, name }) => {
+    const links = findCanvasLinks(findHref(syllabus))
+    if (links.length > 0) {
+      const fileIDs = links.map(link => extractIDfromURL(link))
+      fileIDs.forEach(id => downloadFile(id, './src/output'))
+    }
+  })
+}
+
+; (async function () {
   const allSyllabi = await getAllCourseSyllabiInAccount(15)
 
   const courseIdsWithNoSyllabi = allSyllabi
@@ -48,5 +63,6 @@ const writeSyllabusToDisk = coursesWithSyllabi => {
   const coursesWithSyllabi = allSyllabi
     .filter(x => !noSyllabus(x))
 
-  writeSyllabusToDisk(coursesWithSyllabi)
+  // writeSyllabusToDisk(coursesWithSyllabi)
+  downloadCanvasLinks(coursesWithSyllabi)
 })()
