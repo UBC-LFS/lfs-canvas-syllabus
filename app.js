@@ -43,21 +43,19 @@ const writeSyllabusToDisk = coursesWithSyllabi => {
 }
 
 const downloadCanvasLinks = coursesWithSyllabi => {
-  coursesWithSyllabi.forEach(({ syllabus, courseCode, term, name }) => {
+  const downloadPromises = []
+  coursesWithSyllabi.forEach(async ({ syllabus, courseCode, term, name }) => {
     const links = findCanvasLinks(findHref(syllabus))
     if (links.length > 0) {
-      const fileIDs = links
+      downloadPromises.push(links
+        .filter(link => link.includes('files'))
         .map(link => extractIDfromURL(link))
         .filter(id => typeof id === 'number')
-      fileIDs.forEach(id => {
-        try {
-          downloadFile(id, `./output/${term.name}/${courseCode}/source/`)
-        } catch (e) {
-          console.log(e)
-        }
-      })
+        .map(id => downloadFile(id, `./output/${term.name}/${courseCode}/source/`))
+      )
     }
   })
+  return Promise.all(downloadPromises)
 }
 
 ; (async function () {
@@ -71,6 +69,7 @@ const downloadCanvasLinks = coursesWithSyllabi => {
   const coursesWithSyllabi = allSyllabi
     .filter(x => !noSyllabus(x))
 
-  writeSyllabusToDisk(coursesWithSyllabi)
+  // writeSyllabusToDisk(coursesWithSyllabi)
   downloadCanvasLinks(coursesWithSyllabi)
+    .then(x => console.log(x))
 })()
