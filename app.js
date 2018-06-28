@@ -5,7 +5,6 @@ const {
   downloadFile
 } = require('node-canvas-api')
 const {
-  removeNewline,
   findHref,
   findCanvasLinks,
   extractIDfromURL,
@@ -75,7 +74,7 @@ const downloadCanvasLinks = coursesWithSyllabi => {
   const coursesWithSyllabi = allSyllabi
     .filter(x => !noSyllabus(x))
 
-  // writeSyllabusToDisk(coursesWithSyllabi)
   downloadCanvasLinks(coursesWithSyllabi)
     .then(x => console.log(x))
+    .then(writeSyllabusToDisk(coursesWithSyllabi))
 })()

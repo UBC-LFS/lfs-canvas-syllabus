@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "jest": "^23.2.0",
-    "node-canvas-api": "^1.1.42",
+    "node-canvas-api": "^1.1.43",
     "prompts": "^0.1.10",
     "ramda": "^0.25.0"
   }
