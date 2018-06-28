@@ -11,7 +11,7 @@ const {
   modifyLinks
 } = require('./src/util/html')
 const buildHTML = require('./src/html/buildHTML')
-const writeHTML = require('./src/html/writeHTML')
+const { writeHTML, makeDirectory } = require('./src/html/writeHTML')
 const { flatten } = require('ramda')
 
 const noSyllabus = x => x.syllabus === null || x.syllabus === ''
@@ -31,50 +31,56 @@ const getInstructors = courses => Promise.all(
 )
 
 const writeSyllabusToDisk = coursesWithSyllabi => {
-  coursesWithSyllabi.forEach(({ syllabus, courseCode, term, name }) => {
+  return Promise.all(coursesWithSyllabi.map(({ syllabus, courseCode, term, name }) => {
     const syllabusHTML = buildHTML(syllabus)
-    writeHTML({
+    return writeHTML({
       html: syllabusHTML,
       course: courseCode,
       name,
       term: term.name
     })
-  })
+  }))
 }
 
 const downloadCanvasLinks = coursesWithSyllabi => {
   const downloadPromises = []
-  coursesWithSyllabi.forEach(({ syllabus, courseCode, term, name }) => {
+  coursesWithSyllabi.forEach(({ syllabus, courseCode, term, name }, i) => {
     const links = findCanvasLinks(findHref(syllabus))
     if (links.length > 0) {
       downloadPromises.push(links
         .filter(link => link.includes('files'))
         .map(link => ({ link, id: extractIDfromURL(link) }))
         .filter(({ id }) => typeof id === 'number')
-        .map(({ link, id }) => downloadFile(id, `./output/${term.name}/${courseCode}/source/`)
-          .then(filename => {
-            syllabus = modifyLinks(syllabus, link, filename)
-            return filename
-          })
-          .catch(e => console.log(e))
-        ))
+        .map(({ link, id }) => {
+          makeDirectory(term.name, courseCode)
+          return downloadFile(id, `./output/${term.name}/${courseCode}/source/`)
+            .then(filename => {
+              return filename ? ({
+                syllabus: modifyLinks(syllabus, link, filename),
+                courseCode,
+                term,
+                name
+              }) : ''
+            }).catch(err => console.log(err.options.uri, err.message))
+        })
+      )
     }
   })
   return Promise.all(flatten(downloadPromises))
-}
-
-; (async function () {
+};
+(async function () {
   const allSyllabi = await getAllCourseSyllabiInAccount(15)
 
-  const courseIdsWithNoSyllabi = allSyllabi
-    .filter(x => noSyllabus(x))
+  // const courseIdsWithNoSyllabi = allSyllabi
+  //   .filter(x => noSyllabus(x))
 
   // const instructorsWithNoSyllabus = flatten(await getInstructors(courseIdsWithNoSyllabi))
 
   const coursesWithSyllabi = allSyllabi
     .filter(x => !noSyllabus(x))
-
+  // writeSyllabusToDisk(coursesWithSyllabi)
+  //   .then(x => console.log(x))
   downloadCanvasLinks(coursesWithSyllabi)
-    .then(x => console.log(x))
-    .then(writeSyllabusToDisk(coursesWithSyllabi))
+    .then(syllabi => syllabi.filter(syllabus => !!syllabus))
+    .then(syllabi => writeSyllabusToDisk(syllabi))
 })()
