@@ -8,11 +8,12 @@ const {
   removeNewline,
   findHref,
   findCanvasLinks,
-  extractIDfromURL
+  extractIDfromURL,
+  modifyLinks
 } = require('./src/util/html')
 const buildHTML = require('./src/html/buildHTML')
 const writeHTML = require('./src/html/writeHTML')
-// const { flatten } = require('ramda')
+const { flatten } = require('ramda')
 
 const noSyllabus = x => x.syllabus === null || x.syllabus === ''
 
@@ -44,18 +45,23 @@ const writeSyllabusToDisk = coursesWithSyllabi => {
 
 const downloadCanvasLinks = coursesWithSyllabi => {
   const downloadPromises = []
-  coursesWithSyllabi.forEach(async ({ syllabus, courseCode, term, name }) => {
+  coursesWithSyllabi.forEach(({ syllabus, courseCode, term, name }) => {
     const links = findCanvasLinks(findHref(syllabus))
     if (links.length > 0) {
       downloadPromises.push(links
         .filter(link => link.includes('files'))
-        .map(link => extractIDfromURL(link))
-        .filter(id => typeof id === 'number')
-        .map(id => downloadFile(id, `./output/${term.name}/${courseCode}/source/`))
-      )
+        .map(link => ({ link, id: extractIDfromURL(link) }))
+        .filter(({ id }) => typeof id === 'number')
+        .map(({ link, id }) => downloadFile(id, `./output/${term.name}/${courseCode}/source/`)
+          .then(filename => {
+            syllabus = modifyLinks(syllabus, link, filename)
+            return filename
+          })
+          .catch(e => console.log(e))
+        ))
     }
   })
-  return Promise.all(downloadPromises)
+  return Promise.all(flatten(downloadPromises))
 }
 
 ; (async function () {
