@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 
 const app = express()
 
-app.use(express.static(path.join(__dirname, '../public/build')))
+app.use(express.static(path.join(__dirname, '../../output/')))
 app.disable('x-powered-by')
 
 app.use(bodyParser.json())
