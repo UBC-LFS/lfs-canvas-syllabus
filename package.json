@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watch",
-    "start": "node app.js"
+    "start": "node getSyllabi.js"
   },
   "author": "Justin Lee",
   "license": "ISC",
