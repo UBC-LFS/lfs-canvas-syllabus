@@ -10,6 +10,9 @@
   "author": "Justin Lee",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
     "jest": "^23.2.0",
     "node-canvas-api": "^1.1.43",
     "prompts": "^0.1.10",
