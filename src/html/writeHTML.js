@@ -3,7 +3,7 @@ const { promisify } = require('util')
 const path = require('path')
 const fsWrite = promisify(fs.writeFile)
 
-const createFilePath = (term, course) => path.join(__dirname, `../../output/${term}/${course}/${term}-${course}.html`)
+const createFilePath = (term, course) => path.join(__dirname, `../../output/${term}/${course}/index.html`)
 
 const makeDirectory = (term, course) => {
   if (!fs.existsSync(path.join(__dirname, `../../output/${term}`))) {

@@ -12,7 +12,8 @@ class App extends React.Component {
       terms: [],
       courses: [],
       selectedCourse: '',
-      selectedTerm: ''
+      selectedTerm: '',
+      linkURL: '#'
     }
   }
 
@@ -35,12 +36,14 @@ class App extends React.Component {
 
   handleCourseSelect = (event) => {
     this.setState({
-      selectedCourse: event.value
+      selectedCourse: event.value,
+      linkURL: `syllabi/${this.state.selectedTerm}/${event.value}`
     })
   }
 
   openSyllabi = () => {
     const win = window.open(`http:localhost.com/8080/syllabi/${this.state.selectedTerm}/${this.state.selectedCourse}`, '_blank')
+    console.log(win)
     win.focus()
   }
 
@@ -49,9 +52,9 @@ class App extends React.Component {
       <div>
         <Dropdown options={this.state.terms} value={this.state.selectedTerm} placeholder='Please select a term' onChange={this.handleTermSelect} />
         <Dropdown options={this.state.courses} value={this.state.selectedCourse} placeholder='Please select a course' onChange={this.handleCourseSelect}/>
-        <button onClick={this.openSyllabi}>
+        <a href={this.state.linkURL}>
           Go to syllabus
-        </button>
+        </a>
       </div>
     )
   }
