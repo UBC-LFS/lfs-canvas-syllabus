@@ -10,7 +10,9 @@ class App extends React.Component {
     super(props)
     this.state = {
       terms: [],
-      courses: []
+      courses: [],
+      selectedCourse: '',
+      selectedTerm: ''
     }
   }
 
@@ -22,14 +24,34 @@ class App extends React.Component {
       }))
   }
 
-  handleSelect () {
-    console.log('I was changed!')
+  handleTermSelect = (event) => {
+    fetch(`http://localhost:8080/courses/${event.value}`)
+      .then(courses => courses.json())
+      .then(courses => this.setState({
+        courses,
+        selectedTerm: event.value
+      }))
+  }
+
+  handleCourseSelect = (event) => {
+    this.setState({
+      selectedCourse: event.value
+    })
+  }
+
+  openSyllabi = () => {
+    const win = window.open(`http:localhost.com/8080/syllabi/${this.state.selectedTerm}/${this.state.selectedCourse}`, '_blank')
+    win.focus()
   }
 
   render () {
     return (
       <div>
-        <Dropdown options={this.state.terms} placeholder='Please select a term' onChange={this.handleSelect()} />
+        <Dropdown options={this.state.terms} value={this.state.selectedTerm} placeholder='Please select a term' onChange={this.handleTermSelect} />
+        <Dropdown options={this.state.courses} value={this.state.selectedCourse} placeholder='Please select a course' onChange={this.handleCourseSelect}/>
+        <button onClick={this.openSyllabi}>
+          Go to syllabus
+        </button>
       </div>
     )
   }
