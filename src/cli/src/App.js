@@ -1,3 +1,5 @@
+/* global fetch */
+
 import React from 'react'
 import logo from './logo.svg'
 import './App.css'
@@ -14,9 +16,8 @@ class App extends React.Component {
   componentDidMount () {
     console.log('in here')
     fetch('http://localhost:8080/terms')
-      .then(terms => terms.json())
       .then(terms => this.setState({
-        terms
+        terms: terms.json()
       }))
   }
 

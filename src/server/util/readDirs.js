@@ -9,7 +9,10 @@ const pathToHTML = path.join(__dirname, '../../../output/')
 const unneededDir = ['.DS_Store', '_assets']
 const filterOutDir = dirs => dirs.filter(dir => !unneededDir.includes(dir))
 
-const readDirs = readdirP(pathToHTML)
-  .then(dirs => filterOutDir(dirs))
+const readDirs = (subdir = '') => {
+  console.log(path.join(pathToHTML, subdir))
+  return readdirP(path.join(pathToHTML, subdir))
+    .then(dirs => filterOutDir(dirs))
+}
 
 module.exports = readDirs
