@@ -1,7 +1,8 @@
 /* global fetch */
 
+import Dropdown from 'react-dropdown'
+import 'react-dropdown/style.css'
 import React from 'react'
-import logo from './logo.svg'
 import './App.css'
 
 class App extends React.Component {
@@ -14,23 +15,21 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    console.log('in here')
     fetch('http://localhost:8080/terms')
+      .then(terms => terms.json())
       .then(terms => this.setState({
-        terms: terms.json()
+        terms
       }))
+  }
+
+  handleSelect () {
+    console.log('I was changed!')
   }
 
   render () {
     return (
-      <div className='App'>
-        <header className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
-          <h1 className='App-title'>Welcome to React</h1>
-        </header>
-        <p className='App-intro'>
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <Dropdown options={this.state.terms} placeholder='Please select a term' onChange={this.handleSelect()} />
       </div>
     )
   }
