@@ -6,6 +6,7 @@ const readDirs = require('./util/readDirs')
 const routes = Router()
 
 routes.get('/terms', (req, res) => {
+  console.log('hit here')
   readDirs.then(dirs => res.send(dirs))
 })
 
