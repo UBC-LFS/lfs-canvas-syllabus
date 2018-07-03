@@ -3,7 +3,6 @@ const buildHTML = syllabus => (`
 <html>
 <head>
 <title>Syllabus</title>
-<link rel="stylesheet" type="text/css" href="./global.css">
 </head>
 <body>
 ${syllabus}
