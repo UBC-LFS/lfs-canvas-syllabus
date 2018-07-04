@@ -4,6 +4,7 @@ import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
 import React from 'react'
 import './App.css'
+import { flatten } from 'ramda'
 
 class App extends React.Component {
   constructor (props) {
@@ -13,19 +14,37 @@ class App extends React.Component {
       courses: [],
       selectedCourse: '',
       selectedTerm: '',
-      linkURL: '#'
+      linkURL: '#',
+      allCourses: []
     }
+  }
+
+  getAllCourses = async terms => {
+    const courses = await Promise.all(
+      terms.map(term => fetch(`http://localhost:8080/courses/${term}`)
+        .then(courses => courses.json())
+        .then(courses => ({
+          courses,
+          term
+        }))
+    ))
+    this.setState({
+      allCourses: courses
+    })
   }
 
   componentDidMount () {
     fetch('http://localhost:8080/terms')
       .then(terms => terms.json())
-      .then(terms => this.setState({
-        terms
-      }))
+      .then(terms => {
+        this.getAllCourses(terms)
+        this.setState({
+          terms
+        })
+      })
   }
 
-  handleTermSelect = (event) => {
+  handleTermSelect = event => {
     fetch(`http://localhost:8080/courses/${event.value}`)
       .then(courses => courses.json())
       .then(courses => this.setState({
@@ -34,7 +53,7 @@ class App extends React.Component {
       }))
   }
 
-  handleCourseSelect = (event) => {
+  handleCourseSelect = event => {
     this.setState({
       selectedCourse: event.value,
       linkURL: `syllabi/${this.state.selectedTerm}/${event.value}`
@@ -43,7 +62,6 @@ class App extends React.Component {
 
   openSyllabi = () => {
     const win = window.open(`http:localhost.com/8080/syllabi/${this.state.selectedTerm}/${this.state.selectedCourse}`, '_blank')
-    console.log(win)
     win.focus()
   }
 
