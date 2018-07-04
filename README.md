@@ -9,6 +9,20 @@ This application extracts syllabi from Canvas, determines if it is a link to the
 
 These instructions will get you a copy of the project up and running on your local machine for use with your own API tokens and Canvas domains. 
 
+Run `npm install`
+
+The output folder (containing all the syllabi) should be in the root directory.
+
+To start the development server:
+
+Run `npm start` in `./src/cli`
+
+In a separate terminal, run `npm run server`
+
+To start the production server:
+
+Run in ``npm build` in `./src/cli` to generate static files, then `npm run server`
+ 
 ### Prerequisites
 
 1. **Install [Node 8.0.0 or greater](https://nodejs.org)**.
