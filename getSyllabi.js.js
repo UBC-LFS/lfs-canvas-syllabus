@@ -55,8 +55,11 @@ const downloadCanvasLinks = coursesWithSyllabi => {
           makeDirectory(term.name, courseCode)
           return downloadFile(id, `./output/${term.name}/${courseCode}/source/`)
             .then(filename => {
+              if (filename) {
+                syllabus = modifyLinks(syllabus, link, filename)
+              }
               return filename ? ({
-                syllabus: modifyLinks(syllabus, link, filename),
+                syllabus,
                 courseCode,
                 term,
                 name
