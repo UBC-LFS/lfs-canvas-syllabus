@@ -20,7 +20,6 @@ routes.get('/syllabi/:term/:course', (req, res) => {
   const { term, course } = req.params
   console.log(path.join(__dirname, `../../output/${term}/${course}/index.html`))
   res.sendFile(path.join(__dirname, `../../output/${term}/${course}/index.html`))
-  // res.sendFile(path.join(__dirname, `../../output/_assets/global.css`))
 })
 
 module.exports = routes
