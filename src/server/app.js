@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 
 const app = express()
 
-// app.use('/syllabi', express.static(path.join(__dirname, '../../output/')))
+app.use('/syllabi', express.static(path.join(__dirname, '../../output/')))
 app.use('/', routes)
 
 app.use('/', express.static(path.join(__dirname, '/static/')))
