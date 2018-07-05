@@ -58,6 +58,8 @@ const downloadCanvasLinks = coursesWithSyllabi => {
               }
             }).catch(err => console.log(err.options.uri, err.message))
         })).then(x => ({ syllabus, courseCode, term, name }))
+    } else {
+      return { syllabus, courseCode, term, name }
     }
   })
 };
