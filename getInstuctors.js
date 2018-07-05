@@ -4,6 +4,8 @@ const {
   getUsersInCourse
 } = require('node-canvas-api')
 const { flatten } = require('ramda')
+const path = require('path')
+const { writeHeader, append } = require('write-to-csv')
 
 const noSyllabus = x => x.syllabus === null || x.syllabus === ''
 
@@ -19,14 +21,18 @@ const getInstructors = courses => Promise.all(
         )
       )
   )
-)
-
-;(async function () {
+);
+(async function () {
   const allSyllabi = await getAllCourseSyllabiInAccount(15)
 
   const courseIdsWithNoSyllabi = allSyllabi
     .filter(x => noSyllabus(x))
 
   const instructorsWithNoSyllabus = flatten(await getInstructors(courseIdsWithNoSyllabi))
-  console.log(instructorsWithNoSyllabus)
+  const nameAndCourse = instructorsWithNoSyllabus.map(({ name, courseCode }) => ({ name, courseCode }))
+
+  await writeHeader(path.join(__dirname, 'output/instructorsWithNoSyllabus/instructorsWithNoSyllabus.csv'), ['name', 'courseCode'])
+  for (const instructor of nameAndCourse) {
+    await append(instructor)
+  }
 })()
