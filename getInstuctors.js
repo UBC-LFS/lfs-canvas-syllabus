@@ -10,13 +10,14 @@ const { writeHeader, append } = require('write-to-csv')
 const noSyllabus = x => x.syllabus === null || x.syllabus === ''
 
 const getInstructors = courses => Promise.all(
-  courses.map(({ courseId, courseCode }) =>
+  courses.map(({ courseId, courseCode, term }) =>
     getUsersInCourse(courseId, getOptions.users.enrollmentType.teacher)
       .then(instructors =>
         instructors.map(instructor =>
           Object.assign({}, instructor, {
             courseId,
-            courseCode
+            courseCode,
+            term: term.name
           })
         )
       )
@@ -29,10 +30,10 @@ const getInstructors = courses => Promise.all(
     .filter(x => noSyllabus(x))
 
   const instructorsWithNoSyllabus = flatten(await getInstructors(courseIdsWithNoSyllabi))
-  const nameAndCourse = instructorsWithNoSyllabus.map(({ name, courseCode }) => ({ name, courseCode }))
+  const nameAndCourse = instructorsWithNoSyllabus.map(({ name, courseCode, term }) => ([ name, courseCode, term ]))
 
-  await writeHeader(path.join(__dirname, 'output/instructorsWithNoSyllabus/instructorsWithNoSyllabus.csv'), ['name', 'courseCode'])
+  await writeHeader(path.join(__dirname, 'output/instructorsWithNoSyllabus/instructorsWithNoSyllabus.csv'), ['name', 'courseCode', 'term'])
   for (const instructor of nameAndCourse) {
-    await append(instructor)
+    await append(path.join(__dirname, 'output/instructorsWithNoSyllabus/instructorsWithNoSyllabus.csv'), instructor)
   }
 })()
