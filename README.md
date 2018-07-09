@@ -22,12 +22,12 @@ The output folder (containing all the syllabi) should be in the root directory.
 
 To start the development server:
 
-Run `npm start` in `./src/cli`
+Run `npm run start` in `./src/cli`
 
 In a separate terminal, run `npm run server`
 
 To start the production server:
 
-Run in `npm build` in `./src/cli` to generate static files, then `npm run server`
+Run in `npm run build` in `./src/cli` to generate static files, then `npm run server`
  
- 
+Open a browser and go to localhost:8080.
