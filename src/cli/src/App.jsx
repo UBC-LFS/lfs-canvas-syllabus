@@ -67,13 +67,21 @@ class App extends React.Component {
 
   render () {
     return (
+      [
+      <div>
+        Syllabi Archive
+      </div>,
+      <div class="searchbar">
+        <input type="text" placeholder="Search a course code.."></input>
+      </div>,
       <div>
         <Dropdown options={this.state.terms} value={this.state.selectedTerm} placeholder='Please select a term' onChange={this.handleTermSelect} />
         <Dropdown options={this.state.courses} value={this.state.selectedCourse} placeholder='Please select a course' onChange={this.handleCourseSelect}/>
         <a href={this.state.linkURL}>
           Go to syllabus
         </a>
-      </div>
+      </div> 
+      ]
     )
   }
 }
