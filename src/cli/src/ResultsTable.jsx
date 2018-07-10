@@ -17,14 +17,14 @@ class ResultsTable extends React.Component {
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>FNH 200 001</td>
-						<td>2017W1</td>
-					</tr>
-					<tr>
-						<td>APBI 350 020</td>
-						<td>2016S1-2</td>
-					</tr>
+					{this.props.courses.map(course => {
+							return (
+								<tr key={course['course'] + course['term']}>
+									<th>{course['course']}</th>
+									<th>{course['term']}</th>
+								</tr>	
+							)
+						})}
 				</tbody>
 			</Table>
 		)
