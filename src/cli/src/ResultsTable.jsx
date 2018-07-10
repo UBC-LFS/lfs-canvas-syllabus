@@ -7,38 +7,23 @@ import { Table } from 'react-bootstrap'
 */
 
 class ResultsTable extends React.Component {
-	constructor(props) {
-		super(props)
-	}
-
 	render() {
 		return (
 			<Table bordered>
 				<thead>
 					<tr>
-						<th>#</th>
-						<th>First Name</th>
-						<th>Last Name</th>
-						<th>Username</th>
+						<th>Course</th>
+						<th>Term</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td>1</td>
-						<td>Mark</td>
-						<td>Otto</td>
-						<td>@mdo</td>
+						<td>FNH 200 001</td>
+						<td>2017W1</td>
 					</tr>
 					<tr>
-						<td>2</td>
-						<td>Jacob</td>
-						<td>Thornton</td>
-						<td>@fat</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td colSpan="2">Larry the Bird</td>
-						<td>@twitter</td>
+						<td>APBI 350 020</td>
+						<td>2016S1-2</td>
 					</tr>
 				</tbody>
 			</Table>

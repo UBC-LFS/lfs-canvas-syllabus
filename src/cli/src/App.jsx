@@ -1,7 +1,6 @@
 /* global fetch */
 import React from 'react'
 import { Grid, Row, Col } from 'react-bootstrap';
-import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
 import './App.css'
 
@@ -11,13 +10,21 @@ class App extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      terms: [],
-      courses: [],
-      selectedCourse: '',
-      selectedTerm: '',
-      linkURL: '#',
-      allCourses: []
+      allCourses: [],
+      individualCourses: [],
+      courseResults: []
     }
+  }
+
+  componentDidMount () {
+    fetch('http://localhost:8080/terms')
+      .then(terms => terms.json())
+      .then(terms => {
+        this.getAllCourses(terms)
+        this.setState({
+          terms
+        })
+      })
   }
 
   getAllCourses = async terms => {
@@ -32,38 +39,57 @@ class App extends React.Component {
     this.setState({
       allCourses: courses
     })
-  }
 
-  componentDidMount () {
-    fetch('http://localhost:8080/terms')
-      .then(terms => terms.json())
-      .then(terms => {
-        this.getAllCourses(terms)
-        this.setState({
-          terms
-        })
-      })
-  }
+    var individualCourses = [] // create an array of JSON object with course key and term key
+    for (var i = 0; i < courses.length; ++i) {
+      var item = courses[i]
+      var term = item["term"]
+      var courseList = item["courses"]
+      for (var j = 0; j < courseList.length; ++j) {
+        var courseObj = {
+          'term': term,
+          'course': courseList[j]
+        }        
+        individualCourses.push(courseObj)
+      }
+    }
 
-  handleTermSelect = event => {
-    fetch(`http://localhost:8080/courses/${event.value}`)
-      .then(courses => courses.json())
-      .then(courses => this.setState({
-        courses,
-        selectedTerm: event.value
-      }))
-  }
-
-  handleCourseSelect = event => {
     this.setState({
-      selectedCourse: event.value,
-      linkURL: `syllabi/${this.state.selectedTerm}/${event.value}`
+      individualCourses: individualCourses
     })
   }
 
-  openSyllabi = () => {
-    const win = window.open(`http:localhost.com/8080/syllabi/${this.state.selectedTerm}/${this.state.selectedCourse}`, '_blank')
-    win.focus()
+  // handleTermSelect = event => {
+  //   fetch(`http://localhost:8080/courses/${event.value}`)
+  //     .then(courses => courses.json())
+  //     .then(courses => this.setState({
+  //       courses,
+  //       selectedTerm: event.value
+  //     }))
+  // }
+
+  // handleCourseSelect = event => {
+  //   this.setState({
+  //     selectedCourse: event.value,
+  //     linkURL: `syllabi/${this.state.selectedTerm}/${event.value}`
+  //   })
+  // }
+
+  // openSyllabi = () => {
+  //   const win = window.open(`http:localhost.com/8080/syllabi/${this.state.selectedTerm}/${this.state.selectedCourse}`, '_blank')
+  //   win.focus()
+  // }
+
+  handleSearchInputUpdate = () => {
+    var text = this.searchbar.value.toUpperCase()
+    var filteredCourses = this.state.individualCourses.filter(function(item) {
+      var courseName = item['course']
+      return courseName.includes(text)
+    })
+
+    this.setState({
+      courseResults: filteredCourses
+    })
   }
 
   render () {
@@ -71,17 +97,17 @@ class App extends React.Component {
       <Grid>
         <Row>
           <Col>
-            <h1>Syllabi Archive</h1>
+            <h2>Syllabi Archive</h2>
           </Col>
         </Row>
         <Row>
-          <div class="searchbar">
-            <input type="text" placeholder="Search a course code.."></input>
+          <div className="searchbar">
+            <input type="text" ref={el => this.searchbar = el} onChange={this.handleSearchInputUpdate} placeholder="Search a course code.."></input>
           </div>
         </Row>
         <br />
         <Row>
-          <ResultsTable />
+          <ResultsTable courses={this.state.courseResults}/>
         </Row>
       </Grid>
     )
