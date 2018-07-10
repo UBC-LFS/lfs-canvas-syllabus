@@ -11,7 +11,7 @@ app.use((req, res, next) => {
   next()
 })
 
-app.use('/syllabi', express.static(path.join(__dirname, '../../output/')))
+app.use('/syllabi', express.static(path.join(__dirname, '../../output/syllabi/')))
 app.use('/', routes)
 
 app.use('/', express.static(path.join(__dirname, '/static/')))

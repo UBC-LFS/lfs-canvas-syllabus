@@ -10,6 +10,8 @@ const {
 } = require('./src/util/html')
 const buildHTML = require('./src/html/buildHTML')
 const { writeHTML, makeDirectory } = require('./src/html/writeHTML')
+const prompts = require('prompts')
+const prompt = require('./src/server/constants/promptOptions')
 
 const noSyllabus = x => x.syllabus === null || x.syllabus === ''
 
@@ -35,7 +37,7 @@ const downloadCanvasLinks = coursesWithSyllabi => {
         .filter(({ id }) => typeof id === 'number')
         .map(({ link, id }) => {
           makeDirectory(term.name, courseCode)
-          return downloadFile(id, `./output/${term.name}/${courseCode}/source/`)
+          return downloadFile(id, `./output/syllabi/${term.name}/${courseCode}/source/`)
             .then(filename => {
               if (filename) {
                 syllabus = modifyLinks(syllabus, link, filename)
@@ -49,6 +51,8 @@ const downloadCanvasLinks = coursesWithSyllabi => {
 };
 (async function () {
   const allSyllabi = await getAllCourseSyllabiInAccount(15)
+
+
 
   const coursesWithSyllabi = allSyllabi
     .filter(x => !noSyllabus(x))
