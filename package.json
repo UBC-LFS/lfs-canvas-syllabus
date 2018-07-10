@@ -16,7 +16,7 @@
     "express": "^4.16.3",
     "jest": "^23.2.0",
     "node-canvas-api": "^1.1.43",
-    "prompts": "^0.1.10",
+    "prompts": "^0.1.11",
     "ramda": "^0.25.0",
     "react-dropdown": "^1.5.0",
     "write-to-csv": "^1.0.0"

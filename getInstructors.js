@@ -6,6 +6,8 @@ const {
 const { flatten } = require('ramda')
 const path = require('path')
 const { writeHeader, append } = require('write-to-csv')
+const prompts = require('prompts')
+const prompt = require('./src/server/constants/promptOptions')
 
 const noSyllabus = x => x.syllabus === null || x.syllabus === ''
 
@@ -24,9 +26,14 @@ const getInstructors = courses => Promise.all(
   )
 );
 (async function () {
-  const allSyllabi = await getAllCourseSyllabiInAccount(15)
+  let { year, terms } = await prompts(prompt)
+  console.log(year, terms)
+  const selectedTerms = terms.map(term => year + term)
 
-  const courseIdsWithNoSyllabi = allSyllabi
+  const allCourses = await getAllCourseSyllabiInAccount(15)
+
+  const courseIdsWithNoSyllabi = allCourses
+    .filter(({ term }) => selectedTerms.includes(term.name))
     .filter(x => noSyllabus(x))
 
   const instructorsWithNoSyllabus = flatten(await getInstructors(courseIdsWithNoSyllabi))
