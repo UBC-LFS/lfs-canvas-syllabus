@@ -26,8 +26,7 @@ const getInstructors = courses => Promise.all(
   )
 );
 (async function () {
-  let { year, terms } = await prompts(prompt)
-  console.log(year, terms)
+  const { year, terms } = await prompts(prompt)
   const selectedTerms = terms.map(term => year + term)
 
   const allCourses = await getAllCourseSyllabiInAccount(15)
