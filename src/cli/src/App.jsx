@@ -1,10 +1,11 @@
 /* global fetch */
-
+import React from 'react'
+import { Grid, Row, Col } from 'react-bootstrap';
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
-import React from 'react'
 import './App.css'
-import { flatten } from 'ramda'
+
+import ResultsTable from './ResultsTable'
 
 class App extends React.Component {
   constructor (props) {
@@ -67,21 +68,22 @@ class App extends React.Component {
 
   render () {
     return (
-      [
-      <div>
-        Syllabi Archive
-      </div>,
-      <div class="searchbar">
-        <input type="text" placeholder="Search a course code.."></input>
-      </div>,
-      <div>
-        <Dropdown options={this.state.terms} value={this.state.selectedTerm} placeholder='Please select a term' onChange={this.handleTermSelect} />
-        <Dropdown options={this.state.courses} value={this.state.selectedCourse} placeholder='Please select a course' onChange={this.handleCourseSelect}/>
-        <a href={this.state.linkURL}>
-          Go to syllabus
-        </a>
-      </div> 
-      ]
+      <Grid>
+        <Row>
+          <Col>
+            <h1>Syllabi Archive</h1>
+          </Col>
+        </Row>
+        <Row>
+          <div class="searchbar">
+            <input type="text" placeholder="Search a course code.."></input>
+          </div>
+        </Row>
+        <br />
+        <Row>
+          <ResultsTable />
+        </Row>
+      </Grid>
     )
   }
 }
