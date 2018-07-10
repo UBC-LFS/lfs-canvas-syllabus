@@ -26,7 +26,7 @@ const writeSyllabusToDisk = coursesWithSyllabi => {
 }
 
 const downloadCanvasLinks = coursesWithSyllabi => {
-  return coursesWithSyllabi.map(({ syllabus, courseCode, term, name }, i) => {
+  return coursesWithSyllabi.map(({ syllabus, courseCode, term, name }) => {
     const links = findCanvasLinks(findHref(syllabus))
     if (links.length > 0) {
       return Promise.all(links
