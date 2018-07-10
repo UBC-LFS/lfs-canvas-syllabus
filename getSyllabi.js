@@ -50,11 +50,13 @@ const downloadCanvasLinks = coursesWithSyllabi => {
   })
 };
 (async function () {
-  const allSyllabi = await getAllCourseSyllabiInAccount(15)
+  const { year, terms } = await prompts(prompt)
+  const selectedTerms = terms.map(term => year + term)
 
+  const allCourses = await getAllCourseSyllabiInAccount(15)
 
-
-  const coursesWithSyllabi = allSyllabi
+  const coursesWithSyllabi = allCourses
+    .filter(({ term }) => selectedTerms.includes(term.name))
     .filter(x => !noSyllabus(x))
 
   Promise.all(downloadCanvasLinks(coursesWithSyllabi))

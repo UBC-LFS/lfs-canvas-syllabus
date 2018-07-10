@@ -6,6 +6,7 @@ const readDirs = require('./util/readDirs')
 const routes = Router()
 
 routes.get('/terms', async (req, res) => {
+  console.log('hit terms')
   const dirs = await readDirs()
   res.send(dirs)
 })
