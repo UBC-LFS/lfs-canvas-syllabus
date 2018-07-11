@@ -9,7 +9,7 @@ import { Table } from 'react-bootstrap'
 class ResultsTable extends React.Component {
 	render() {
 		return (
-			<Table bordered>
+			<Table striped bordered hover>
 				<thead>
 					<tr>
 						<th>Course</th>
@@ -22,12 +22,12 @@ class ResultsTable extends React.Component {
 
 							return (
 								<tr key={course['course'] + course['term']}>
-									<th>
+									<th style={{fontWeight: 'normal'}}>
 										<a href={syllabusLink}>
 											{course['course']}
 										</a>
 									</th>
-									<th>
+									<th style={{fontWeight: 'normal'}}>
 										{course['term']}
 									</th>
 								</tr>	
