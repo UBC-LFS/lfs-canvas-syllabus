@@ -20,14 +20,21 @@ Run `npm install`
 
 The output folder (containing all the syllabi) should be in the root directory.
 
+<br/>
 To start the development server:
 
-Run `npm run start` in `./src/cli`
+From the root directory, run `npm run server`
 
-In a separate terminal, run `npm run server`
+From `src/cli`, run `npm run start`
 
+This will hot reload any changes you make to the front-end/
+
+<br/>
 To start the production server:
 
-Run in `npm run build` in `./src/cli` to generate static files, then `npm run server`
- 
+Run in `npm run build` in `./src/cli` to generate static files.
+
+From the root directory, run  `npm run server`
+
+<br/> 
 Open a browser and go to localhost:8080.
