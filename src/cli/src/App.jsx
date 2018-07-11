@@ -1,6 +1,6 @@
 /* global fetch */
 import React from 'react'
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, FormControl } from 'react-bootstrap';
 import 'react-dropdown/style.css'
 import './App.css'
 
@@ -55,30 +55,10 @@ class App extends React.Component {
     }
 
     this.setState({
-      individualCourses: individualCourses
+      individualCourses: individualCourses,
+      courseResults: individualCourses
     })
   }
-
-  // handleTermSelect = event => {
-  //   fetch(`http://localhost:8080/courses/${event.value}`)
-  //     .then(courses => courses.json())
-  //     .then(courses => this.setState({
-  //       courses,
-  //       selectedTerm: event.value
-  //     }))
-  // }
-
-  // handleCourseSelect = event => {
-  //   this.setState({
-  //     selectedCourse: event.value,
-  //     linkURL: `syllabi/${this.state.selectedTerm}/${event.value}`
-  //   })
-  // }
-
-  // openSyllabi = () => {
-  //   const win = window.open(`http:localhost.com/8080/syllabi/${this.state.selectedTerm}/${this.state.selectedCourse}`, '_blank')
-  //   win.focus()
-  // }
 
   handleSearchInputUpdate = () => {
     var text = this.searchbar.value.toUpperCase()
@@ -101,9 +81,9 @@ class App extends React.Component {
           </Col>
         </Row>
         <Row>
-          <div className="searchbar">
-            <input type="text" ref={el => this.searchbar = el} onChange={this.handleSearchInputUpdate} placeholder="Search a course code.."></input>
-          </div>
+          <FormControl type="text" inputRef={el => this.searchbar = el} onChange={this.handleSearchInputUpdate} 
+            placeholder="Search a course code... (ex: FNH200)">
+          </FormControl>
         </Row>
         <br />
         <Row>
