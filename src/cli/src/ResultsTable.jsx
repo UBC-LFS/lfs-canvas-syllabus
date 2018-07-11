@@ -18,10 +18,18 @@ class ResultsTable extends React.Component {
 				</thead>
 				<tbody>
 					{this.props.courses.map(course => {
+							var syllabusLink = 'syllabi/' + course['term'] + '/' + course['course']
+
 							return (
 								<tr key={course['course'] + course['term']}>
-									<th>{course['course']}</th>
-									<th>{course['term']}</th>
+									<th>
+										<a href={syllabusLink}>
+											{course['course']}
+										</a>
+									</th>
+									<th>
+										{course['term']}
+									</th>
 								</tr>	
 							)
 						})}
