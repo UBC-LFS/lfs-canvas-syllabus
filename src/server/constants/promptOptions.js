@@ -13,11 +13,13 @@ const prompt = [
       { title: 'SA', value: 'SA' },
       { title: 'S2', value: 'S2' },
       { title: 'S', value: 'S' },
+      { title: 'S1-2', value: 'S1-2' },
       { title: 'W1', value: 'W1' },
       { title: 'WA', value: 'WA' },
       { title: 'W2', value: 'W2' },
       { title: 'WC', value: 'WC' },
-      { title: 'W', value: 'W' }
+      { title: 'W', value: 'W' },
+      { title: 'W1-2', value: 'W1-2' }
     ],
     hint: `Please use the "space" key to select, and the "return" key to submit. Select as many as you'd like!`
   }
