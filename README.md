@@ -38,3 +38,6 @@ From the root directory, run  `npm run server`
 
 <br/> 
 Open a browser and go to localhost:8080.
+
+CANVAS_API_TOKEN=
+CANVAS_API_DOMAIN=
