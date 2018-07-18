@@ -8,4 +8,8 @@ describe('extractIDfromURL', () => {
     let input = 'https://ubc.beta.instructure.com/courses/169/files/116607/download?verifier=abcedgs214tgsgdfbcv'
     assert.deepEqual(extractIDfromURL(input), 116607)
   })
+  it('ignores if base url is different', () => {
+    let input = 'https://ubc.ca/courses/169/files/116607/download?verifier=abcedgs214tgsgdfbcv'
+    assert.deepEqual(extractIDfromURL(input), '')
+  })
 })

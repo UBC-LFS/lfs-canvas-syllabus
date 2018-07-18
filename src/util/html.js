@@ -8,7 +8,7 @@ const findHref = html => {
 const baseURL = 'ubc.beta.instructure.com' // 'canvas.ubc.ca'
 const findCanvasHref = str => str.includes(baseURL)
 const findCanvasLinks = matches => matches.filter(match => findCanvasHref(match))
-const extractIDfromURL = url => Number(url.split('/files/')[1].split('/')[0])
+const extractIDfromURL = url => findCanvasHref(url) ? Number(url.split('/files/')[1].split('/')[0]) : ''
 const modifyLinks = (syllabus, link, filename) => syllabus.replace(link, `./source/${filename}`)
 
 module.exports = {
