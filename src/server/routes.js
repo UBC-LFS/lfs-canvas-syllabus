@@ -10,8 +10,7 @@ routes.get('/terms', async (req, res) => {
   res.send(dirs)
 })
 
-routes.get('/courses/:term', async (req, res) => {
-  const { term } = req.params
+routes.get('/courses/:term', async ({ params: { term } }, res) => {
   const dirs = await readDirs(term)
   res.send(dirs)
 })
