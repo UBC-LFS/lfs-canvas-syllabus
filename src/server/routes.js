@@ -15,7 +15,7 @@ routes.get('/courses/:term', async ({ params: { term } }, res) => {
   res.send(dirs)
 })
 
-routes.get('/syllabi/:term/:course', ({ paarms: { term, course } }, res) => {
+routes.get('/syllabi/:term/:course', ({ params: { term, course } }, res) => {
   res.sendFile(path.join(__dirname, `../../output/syllabi/${term}/${course}/index.html`))
 })
 
