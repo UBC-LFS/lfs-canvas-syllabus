@@ -14,14 +14,14 @@ routes.get('/syllabi/:term/:course', ({ params: { term, course } }, res) => {
   res.sendFile(path.join(__dirname, `../../output/syllabi/${term}/${course}/index.html`))
 })
 
-routes.get('/courses', async (req, res) => {
+routes.get('/availableSyllabi', async (req, res) => {
   const terms = await readDirs()
   const courses = flatten(
     await Promise.all(
       terms.map(term => {
         return readDirs(term)
           .then(courses => ({
-            courses,
+            courses: courses.map(course => course.split('.')[0]),
             term
           }))
       })
