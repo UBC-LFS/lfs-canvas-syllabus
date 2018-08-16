@@ -5,12 +5,12 @@ const { flatten } = require('ramda')
 
 const routes = Router()
 
-routes.get('/courses/:term', async ({ params: { term } }, res) => {
+routes.get('/lfssyllabi/courses/:term', async ({ params: { term } }, res) => {
   const coursesInTerm = await readDirs(term)
   res.send(coursesInTerm)
 })
 
-routes.get('/syllabi/:term/:course', ({ params: { term, course } }, res) => {
+routes.get('/lfssyllabi/syllabi/:term/:course', ({ params: { term, course } }, res) => {
   res.sendFile(path.join(__dirname, `../../output/syllabi/${term}/${course}/index.html`))
 })
 
