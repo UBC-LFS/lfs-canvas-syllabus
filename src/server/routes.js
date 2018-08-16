@@ -31,8 +31,8 @@ routes.get('/availableSyllabi', async (req, res) => {
   res.send(courses)
 })
 
-routes.get('/lfssyllabi/*', (req, res) => {
-  res.redirect('http://prod-lc01-pub.landfood.ubc.ca/lfscourses/')
-})
+// routes.get('/lfssyllabi/*', (req, res) => {
+//   res.redirect('http://prod-lc01-pub.landfood.ubc.ca/lfscourses/')
+// })
 
 module.exports = routes
