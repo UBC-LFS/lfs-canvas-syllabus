@@ -15,4 +15,20 @@ routes.get('/lfssyllabi/syllabi/:term/:course', ({ params: { term, course } }, r
   res.sendFile(path.join(__dirname, `../../output/syllabi/${term}/${course}/index.html`))
 })
 
+routes.get('/availableSyllabi', async (req, res) => {
+  const terms = await readDirs()
+  const courses = flatten(
+    await Promise.all(
+      terms.map(term => {
+        return readDirs(term)
+          .then(courses => ({
+            courses: courses.map(course => course.split('.')[0]),
+            term
+          }))
+      })
+    )
+  )
+  res.send(courses)
+})
+
 module.exports = routes
