@@ -11,7 +11,7 @@ app.use((req, res, next) => {
   next()
 })
 
-app.use('/lfsyllabi/', express.static(path.join(__dirname, '../../output/syllabi/')))
+app.use('/lfssyllabi/syllabi/', express.static(path.join(__dirname, '../../output/syllabi/')))
 app.use('/', routes)
 
 app.disable('x-powered-by')
