@@ -16,8 +16,6 @@ app.use('/', routes)
 
 app.disable('x-powered-by')
 
-app.use('/', express.static(path.join(__dirname, '/static/')))
-
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
