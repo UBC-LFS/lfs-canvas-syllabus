@@ -19,7 +19,7 @@ app.disable('x-powered-by')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.get('*', (req, res) => {
+app.get('/lfsyllabi', (req, res) => {
   res.redirect('http://prod-lc01-pub.landfood.ubc.ca/lfscourses/')
 })
 
