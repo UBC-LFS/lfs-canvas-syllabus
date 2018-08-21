@@ -18,6 +18,11 @@ These instructions will get you a copy of the project up and running on your loc
 1. First, clone this repo. `git clone https://github.com/UBC-LFS/lfs-canvas-syllabus.git`
 1. Then cd into the repo. `cd lfs-canvas-syllabus`
 1. Run the installation script. `npm install` (If you see `babel-node: command not found`, you've missed this step.)
+1. Create a `.env` file. This is where you'll specify the URL and token as show below. Don't add quotes. You can swap out the domain if you want to run it off production. 
+```
+CANVAS_API_TOKEN=PLACE YOUR TOKEN HERE
+CANVAS_API_DOMAIN=https://ubc.beta.instructure.com/api/v1
+```
 
 ### Gathering syllabus
 1. Run the script. `node getSyllabi.js`
@@ -29,6 +34,11 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Gathering instructors who have no syllabi in their course
 1. Run the script. `node getInstructors.js`
+1. Input the year you are interested in (if you are interested in more than one year, you'll need to run the script more than one time).
+1. Input the account number of your Faculty. If you don't know what your account number is, go [here](https://ubc.beta.instructure.com/accounts/) and click your Faculty. Then the URL will contain the account number at the end. For LFS, it's 15. 
+1. Select the terms you are interested in. You can select multiple terms by pressing `space`. 
+1. Go for a (quick) coffee. Depending on how many terms you select, and how many courses you have under your account, this may take some time.
+1. The `instructorsWithNoSyllabus.csv` file should be created under `output/instructorsWithNoSyllabus/`.
 
 
 
