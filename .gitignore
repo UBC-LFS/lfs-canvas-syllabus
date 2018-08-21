@@ -65,5 +65,4 @@ typings/
 dist
 DS_Store
 .vscode
-output
 static
