@@ -21,9 +21,10 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Gathering syllabus
 1. Run the script. `node getSyllabi.js`
-2. Input the year you are interested in (if you are interested in more than one year, you'll need to run the script more than one time).
-3. Select the terms you are interested in. You can select multiple terms by pressing `space`. 
-4. Go for a coffee. Depending on how many terms you select, and how many courses you have under your account, 
+1. Input the year you are interested in (if you are interested in more than one year, you'll need to run the script more than one time).
+1. Input the account number of your Faculty. If you don't know what your account number is, go [here](https://ubc.beta.instructure.com/accounts/) and click your Faculty. Then the URL will contain the account number at the end. For LFS, it's 15. 
+1. Select the terms you are interested in. You can select multiple terms by pressing `space`. 
+1. Go for a coffee. Depending on how many terms you select, and how many courses you have under your account, and how many files each course syllabus has, this could take some time. 
 
 The output folder (containing all the syllabi) should be in the root directory.
 
