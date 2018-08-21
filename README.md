@@ -39,8 +39,3 @@ CANVAS_API_DOMAIN=https://ubc.beta.instructure.com/api/v1
 1. Select the terms you are interested in. You can select multiple terms by pressing `space`. 
 1. Go for a (quick) coffee. Depending on how many terms you select, and how many courses you have under your account, this may take some time.
 1. The `instructorsWithNoSyllabus.csv` file should be created under `output/instructorsWithNoSyllabus/`.
-
-
-
-CANVAS_API_TOKEN=
-CANVAS_API_DOMAIN=
