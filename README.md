@@ -25,8 +25,10 @@ These instructions will get you a copy of the project up and running on your loc
 1. Input the account number of your Faculty. If you don't know what your account number is, go [here](https://ubc.beta.instructure.com/accounts/) and click your Faculty. Then the URL will contain the account number at the end. For LFS, it's 15. 
 1. Select the terms you are interested in. You can select multiple terms by pressing `space`. 
 1. Go for a coffee. Depending on how many terms you select, and how many courses you have under your account, and how many files each course syllabus has, this could take some time. 
+1. The syllabi is now downloaded in `output/syllabi`, inside folders that indicate what year/term the course was offered.
 
-The output folder (containing all the syllabi) should be in the root directory.
+### Gathering instructors who have no syllabi in their course
+1. Run the script. `node getInstructors.js`
 
 
 
