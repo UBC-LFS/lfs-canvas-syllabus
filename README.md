@@ -3,7 +3,7 @@
 
 # LFS-Canvas-Syllabus
 
-This application extracts syllabi from Canvas, determines if it is a link to the PDF or a Canvas Page, downloads the syllabi, and generates a list of all courses that do not have a syllabus specified.
+This application extracts syllabi from Canvas, determines if it is a link to the PDF or a Canvas Page, downloads the syllabi, and generates a list of all courses (with instructor names) that do not have a syllabus specified.
 
 ## Getting Started
 
@@ -12,32 +12,22 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 1. **Install [Node 8.0.0 or greater](https://nodejs.org)**.
-2. **Install [Git](https://git-scm.com/downloads)**.
+1. **Install [Git](https://git-scm.com/downloads)**.
 
-### Running locally
+### Installing and Setup
+1. First, clone this repo. `git clone https://github.com/UBC-LFS/lfs-canvas-syllabus.git`
+1. Then cd into the repo. `cd lfs-canvas-syllabus`
+1. Run the installation script. `npm install` (If you see `babel-node: command not found`, you've missed this step.)
 
-Run `npm install`
+### Gathering syllabus
+1. Run the script. `node getSyllabi.js`
+2. Input the year you are interested in (if you are interested in more than one year, you'll need to run the script more than one time).
+3. Select the terms you are interested in. You can select multiple terms by pressing `space`. 
+4. Go for a coffee. Depending on how many terms you select, and how many courses you have under your account, 
 
 The output folder (containing all the syllabi) should be in the root directory.
 
-<br/>
-To start the development server:
 
-From the root directory, run `npm run server`
-
-From `src/cli`, run `npm run start`
-
-This will hot reload any changes you make to the front-end/
-
-<br/>
-To start the production server:
-
-Run in `npm run build` in `./src/cli` to generate static files.
-
-From the root directory, run  `npm run server`
-
-<br/> 
-Open a browser and go to localhost:8080.
 
 CANVAS_API_TOKEN=
 CANVAS_API_DOMAIN=

@@ -26,10 +26,10 @@ const getInstructors = courses => Promise.all(
   )
 );
 (async function () {
-  const { year, terms } = await prompts(prompt)
+  const { year, terms, account } = await prompts(prompt)
   const selectedTerms = terms.map(term => year + term)
 
-  const allCourses = await getAllCourseSyllabiInAccount(15)
+  const allCourses = await getAllCourseSyllabiInAccount(account)
 
   const courseIdsWithNoSyllabi = allCourses
     .filter(({ term }) => selectedTerms.includes(term.name))
