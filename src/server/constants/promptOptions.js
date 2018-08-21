@@ -22,6 +22,11 @@ const prompt = [
       { title: 'W1-2', value: 'W1-2' }
     ],
     hint: `Please use the "space" key to select, and the "return" key to submit. Select as many as you'd like!`
+  },
+  {
+    type: 'number',
+    name: 'account',
+    message: `What is your subaccount number? If you don't know, go to https://ubc.beta.instructure.com/accounts/ and click on your Faculty - in the URL, the number will show at the end. LFS is 15.`
   }
 ]
 
