@@ -18,7 +18,7 @@ These instructions will get you a copy of the project up and running on your loc
 1. First, clone this repo. `git clone https://github.com/UBC-LFS/lfs-canvas-syllabus.git`
 1. Then cd into the repo. `cd lfs-canvas-syllabus`
 1. Run the installation script. `npm install` (If you see `babel-node: command not found`, you've missed this step.)
-1. Create a `.env` file. This is where you'll specify the URL and token as show below. Don't add quotes. You can swap out the domain if you want to run it off production. 
+1. Create a `.env` file. `touch .env`. This is where you'll specify the URL and token as show below. Don't add quotes. You can swap out the domain if you want to run it off production. 
 ```
 CANVAS_API_TOKEN=PLACE YOUR TOKEN HERE
 CANVAS_API_DOMAIN=https://ubc.beta.instructure.com/api/v1
