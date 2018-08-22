@@ -36,7 +36,8 @@ CANVAS_API_DOMAIN=https://ubc.beta.instructure.com/api/v1
 ### Gathering instructors who have no syllabi in their course
 1. Run the script. `node getInstructors.js`
 1. Input the year you are interested in (if you are interested in more than one year, you'll need to run the script more than one time).
+'All of them'.
 1. Input the account number of your Faculty. If you don't know what your account number is, go [here](https://ubc.beta.instructure.com/accounts/) and click your Faculty. Then the URL will contain the account number at the end. For LFS, it's 15. 
-1. Select the terms you are interested in. You can select multiple terms by pressing `space`. 
+1. Select the terms you are interested in. You can select multiple terms by pressing `space`. If you want to select all the terms, leave the default selection of 
 1. Go for a (quick) coffee. Depending on how many terms you select, and how many courses you have under your account, this may take some time.
 1. The `instructorsWithNoSyllabus.csv` file should be created under `output/instructorsWithNoSyllabus/`.
