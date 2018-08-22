@@ -26,7 +26,14 @@ const getInstructors = courses => Promise.all(
   )
 );
 (async function () {
-  const { year, terms, account } = await prompts(prompt)
+  let { year, terms, account } = await prompts(prompt)
+  if (!account) {
+    account = 15
+  }
+  if (terms.length === 1 && terms[0] === 'all') {
+    terms = ['S1', 'SA', 'S2', 'S', 'S1-2', 'W1', 'WA', 'W2', 'WC', 'W', 'W1-2']
+  }
+
   const selectedTerms = terms.map(term => year + term)
 
   const allCourses = await getAllCourseSyllabiInAccount(account)

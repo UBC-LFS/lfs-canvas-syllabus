@@ -9,6 +9,7 @@ const prompt = [
     name: 'terms',
     message: 'What term are you interested in?',
     choices: [
+      { title: 'All of them', value: 'all', selected: true },
       { title: 'S1', value: 'S1' },
       { title: 'SA', value: 'SA' },
       { title: 'S2', value: 'S2' },
