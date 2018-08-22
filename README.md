@@ -27,8 +27,9 @@ CANVAS_API_DOMAIN=https://ubc.beta.instructure.com/api/v1
 ### Gathering syllabus
 1. Run the script. `node getSyllabi.js`
 1. Input the year you are interested in (if you are interested in more than one year, you'll need to run the script more than one time).
+1. Select the terms you are interested in. You can select multiple terms by pressing `space`. If you want to select all the terms, leave the default selection of 
+'All of them'. 
 1. Input the account number of your Faculty. If you don't know what your account number is, go [here](https://ubc.beta.instructure.com/accounts/) and click your Faculty. Then the URL will contain the account number at the end. For LFS, it's 15. 
-1. Select the terms you are interested in. You can select multiple terms by pressing `space`. 
 1. Go for a coffee. Depending on how many terms you select, and how many courses you have under your account, and how many files each course syllabus has, this could take some time. 
 1. The syllabi is now downloaded in `output/syllabi`, inside folders that indicate what year/term the course was offered.
 
