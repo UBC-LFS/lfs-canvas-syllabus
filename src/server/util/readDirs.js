@@ -6,7 +6,7 @@ const readdirP = promisify(readdir)
 
 const pathToHTML = path.join(__dirname, '../../../output/syllabi/')
 
-const unneededDir = ['.DS_Store', '_assets', 'Default Term', 'instructorsWithNoSyllabus']
+const unneededDir = ['.DS_Store', '_assets', 'Default Term', 'instructorsWithNoSyllabus', '.gitignore']
 const filterOutDir = dirs =>
   dirs.filter(dir => !unneededDir.includes(dir))
 

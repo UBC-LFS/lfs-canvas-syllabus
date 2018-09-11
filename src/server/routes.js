@@ -10,9 +10,14 @@ routes.get('/lfssyllabi/courses/:term', async ({ params: { term } }, res) => {
   res.send(coursesInTerm)
 })
 
-routes.get('/lfssyllabi/syllabi/:term/:course', ({ params: { term, course } }, res) => {
-  console.log('hit here')
-  res.sendFile(path.join(__dirname, `../../output/syllabi/${term}/${course}/index.html`))
+routes.get('/lfssyllabi/syllabi/:term/:course/source/:file$', ({ params: { term, course, file } }, res) => {
+  var staticFile = path.join(__dirname, `../../output/syllabi/${term}/${course}/source/${file}`)
+  res.sendFile(staticFile)
+})
+
+routes.get('/lfssyllabi/syllabi/:term/:course/:file$', ({ params: { term, course, file } }, res) => {
+  var staticFile = path.join(__dirname, `../../output/syllabi/${term}/${course}/${file}`)
+  res.sendFile(staticFile)
 })
 
 routes.get('/availableSyllabi', async (req, res) => {
@@ -30,9 +35,5 @@ routes.get('/availableSyllabi', async (req, res) => {
   )
   res.send(courses)
 })
-
-// routes.get('/lfssyllabi/*', (req, res) => {
-//   res.redirect('http://prod-lc01-pub.landfood.ubc.ca/lfscourses/')
-// })
 
 module.exports = routes
