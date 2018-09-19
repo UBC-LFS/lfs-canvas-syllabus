@@ -11,12 +11,12 @@ routes.get('/lfssyllabi/courses/:term', async ({ params: { term } }, res) => {
 })
 
 routes.get('/lfssyllabi/syllabi/:term/:course/source/:file$', ({ params: { term, course, file } }, res) => {
-  var staticFile = path.join(__dirname, `../../output/syllabi/${term}/${course}/source/${file}`)
+  const staticFile = path.join(__dirname, `../../output/syllabi/${term}/${course}/source/${file}`)
   res.sendFile(staticFile)
 })
 
 routes.get('/lfssyllabi/syllabi/:term/:course/:file$', ({ params: { term, course, file } }, res) => {
-  var staticFile = path.join(__dirname, `../../output/syllabi/${term}/${course}/${file}`)
+  const staticFile = path.join(__dirname, `../../output/syllabi/${term}/${course}/${file}`)
   res.sendFile(staticFile)
 })
 
