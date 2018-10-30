@@ -3,15 +3,15 @@ const { promisify } = require('util')
 const path = require('path')
 const fsWrite = promisify(fs.writeFile)
 
-const createFilePath = (term, course) => path.join(__dirname, `../../output/syllabi/${term}/${course}/index.html`)
+const createFilePath = (term, course) => path.join(__dirname, `../../output/syllabi/${term}/${course.replace(/[^a-zA-Z0-9 ]/g, " ")}/index.html`)
 
 const makeDirectory = (term, course) => {
   if (!fs.existsSync(path.join(__dirname, `../../output/syllabi/${term}`))) {
     fs.mkdirSync(path.join(__dirname, `../../output/syllabi/${term}`))
   }
-  if (!fs.existsSync(path.join(__dirname, `../../output/syllabi/${term}/${course}`))) {
-    fs.mkdirSync(path.join(__dirname, `../../output/syllabi/${term}/${course}`))
-    fs.mkdirSync(path.join(__dirname, `../../output/syllabi/${term}/${course}/source`))
+  if (!fs.existsSync(path.join(__dirname, `../../output/syllabi/${term}/${course.replace(/[^a-zA-Z0-9 ]/g, " ")}`))) {
+    fs.mkdirSync(path.join(__dirname, `../../output/syllabi/${term}/${course.replace(/[^a-zA-Z0-9 ]/g, " ")}`))
+    fs.mkdirSync(path.join(__dirname, `../../output/syllabi/${term}/${course.replace(/[^a-zA-Z0-9 ]/g, " ")}/source`))
   }
 }
 

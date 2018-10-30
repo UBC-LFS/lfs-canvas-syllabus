@@ -37,7 +37,7 @@ const downloadCanvasLinks = coursesWithSyllabi => {
         .filter(({ id }) => typeof id === 'number')
         .map(({ link, id }) => {
           makeDirectory(term.name, courseCode)
-          return downloadFile(id, `./output/syllabi/${term.name}/${courseCode}/source/`)
+          return downloadFile(id, `./output/syllabi/${term.name}/${courseCode.replace(/[^a-zA-Z0-9 ]/g, " ")}/source/`)
             .then(filename => {
               if (filename) {
                 syllabus = modifyLinks(syllabus, link, filename)
