@@ -43,6 +43,7 @@ const downloadCanvasLinks = coursesWithSyllabi => {
                 syllabus = modifyLinks(syllabus, link, filename)
               }
             }).catch(err => console.log(err.options.uri, err.message))
+            return null;
         })).then(x => ({ syllabus, courseCode, term, name }))
     } else {
       return { syllabus, courseCode, term, name }
@@ -61,7 +62,6 @@ const downloadCanvasLinks = coursesWithSyllabi => {
   }
 
   const selectedTerms = terms.map(term => year + term)
-
   const allCourses = await getAllCourseSyllabiInAccount(account)
 
   const coursesWithSyllabi = allCourses
