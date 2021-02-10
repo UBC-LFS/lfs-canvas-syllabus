@@ -2,54 +2,20 @@ const {
   getAllCourseSyllabiInAccount,
   downloadFile
 } = require('node-canvas-api')
+
 const {
   findHref,
   findCanvasLinks,
   extractIDfromURL,
   modifyLinks
 } = require('./src/util/html')
+
 const buildHTML = require('./src/html/buildHTML')
 const { writeHTML, makeDirectory } = require('./src/html/writeHTML')
 const prompts = require('prompts')
 const prompt = require('./src/server/constants/promptOptions')
 
-const noSyllabus = x => x.syllabus === null || x.syllabus === ''
-
-const writeSyllabusToDisk = coursesWithSyllabi => {
-  return Promise.all(coursesWithSyllabi.map(({ syllabus, courseCode, term, name }) => {
-    const syllabusHTML = buildHTML(syllabus)
-    return writeHTML({
-      html: syllabusHTML,
-      course: courseCode,
-      name,
-      term: term.name
-    })
-  }))
-}
-
-const downloadCanvasLinks = coursesWithSyllabi => {
-  return coursesWithSyllabi.map(({ syllabus, courseCode, term, name }) => {
-    const links = findCanvasLinks(findHref(syllabus))
-    if (links.length > 0) {
-      return Promise.all(links
-        .filter(link => link.includes('files'))
-        .map(link => ({ link, id: extractIDfromURL(link) }))
-        .filter(({ id }) => typeof id === 'number')
-        .map(({ link, id }) => {
-          makeDirectory(term.name, courseCode)
-          return downloadFile(id, `./output/syllabi/${term.name}/${courseCode.replace(/[^a-zA-Z0-9 ]/g, " ")}/source/`)
-            .then(filename => {
-              if (filename) {
-                syllabus = modifyLinks(syllabus, link, filename)
-              }
-            }).catch(err => console.log(err.options.uri, err.message))
-            return null;
-        })).then(x => ({ syllabus, courseCode, term, name }))
-    } else {
-      return { syllabus, courseCode, term, name }
-    }
-  })
-};
+const noSyllabus = x => x.syllabus === null || x.syllabus === '';
 
 (async function () {
   let { year, terms, account } = await prompts(prompt)
@@ -62,13 +28,50 @@ const downloadCanvasLinks = coursesWithSyllabi => {
   }
 
   const selectedTerms = terms.map(term => year + term)
+  console.log('\nSelected:', year, terms, account, selectedTerms);
+  console.log('\nPlease wait... Trying to get the information via Canvas API. This might take several minutes.');
+
   const allCourses = await getAllCourseSyllabiInAccount(account)
+  console.log('\nGot all the course information successfully...');
 
-  const coursesWithSyllabi = allCourses
-    .filter(({ term }) => selectedTerms.includes(term.name))
-    .filter(x => !noSyllabus(x))
+  const filteredCourses = allCourses.filter(obj => selectedTerms.includes(obj.term.name) && !noSyllabus(obj));
+  console.log('Number of filtered courses:', filteredCourses.length + ' out of ' + allCourses.length);
 
-  Promise.all(downloadCanvasLinks(coursesWithSyllabi))
-    .then(syllabi => syllabi.filter(syllabus => !!syllabus))
-    .then(syllabi => writeSyllabusToDisk(syllabi))
-})()
+  if (filteredCourses.length > 0) console.log('\nStart downloading...\n')
+
+  // Sort by name
+  filteredCourses.sort((a, b) => (a.name > b.name) ? 1 : -1)
+
+  for (let obj of filteredCourses) {
+
+    // Make a directory
+    makeDirectory(obj.term.name, obj.courseCode)
+
+    const links = findCanvasLinks( findHref(obj.syllabus) )
+    const filterdLinks = links.filter(link => link.includes('files') && link.includes('verifier'))
+    const uniqueLinks = filterdLinks.filter((link, i) => filterdLinks.indexOf(link) === i)
+
+    if (uniqueLinks.length > 0) {
+      for (let link of uniqueLinks) {
+        const id = extractIDfromURL(link)
+
+        if (typeof id === 'number' && id > -1) {
+          downloadFile(id, `./output/syllabi/${obj.term.name}/${obj.courseCode.replace(/[^a-zA-Z0-9 ]/g, " ")}/source/`)
+            .then(filename => {
+              if (filename) {
+                modifiedSyllabus = modifyLinks(obj.syllabus, link, filename);
+                writeHTML({ html: buildHTML(modifiedSyllabus), course: obj.courseCode, name: obj.name, term: obj.term.name })
+                console.log(obj.courseCode + ' - File: ' + filename + ' downloaded.')
+              }
+            }).catch(err => console.log(obj.courseCode + ' Error:', err.message))
+        } else {
+          console.log(obj.courseCode + ' Error: ID is invalid.', id)
+        }
+      }
+    } else {
+      writeHTML({ html: buildHTML(obj.syllabus), course: obj.courseCode, name: obj.name, term: obj.term.name })
+      console.log(obj.courseCode + ' - No available links found.')
+    }
+  }
+
+})();
