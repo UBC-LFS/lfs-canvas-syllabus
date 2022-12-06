@@ -11,9 +11,9 @@
   "author": "Justin Lee",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.1",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "jest": "^26.6.3",
     "node-canvas-api": "^1.6.0",
     "npm": "^7.5.2",
